@@ -14,8 +14,6 @@ type ProductType = {
   category: string;
   collections: [CollectionType];
   tags: [string];
-  sizes: [string];
-  colors: [string];
   price: number;
   expense: number;
   createdAt: Date;
@@ -32,8 +30,6 @@ type OrderColumnType = {
 
 type OrderItemType = {
   product: ProductType
-  color: string;
-  size: string;
   quantity: number;
 }
 

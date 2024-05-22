@@ -82,8 +82,6 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
           category: "",
           collections: [],
           tags: [],
-          sizes: [],
-          colors: [],
           price: 0.1,
           expense: 0.1,
         },
@@ -149,7 +147,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                     onKeyDown={handleKeyPress}
                   />
                 </FormControl>
-                <FormMessage className="text-red-1" />
+                <FormMessage className="text-green-1" />
               </FormItem>
             )}
           />
@@ -167,7 +165,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                     onKeyDown={handleKeyPress}
                   />
                 </FormControl>
-                <FormMessage className="text-red-1" />
+                <FormMessage className="text-green-1" />
               </FormItem>
             )}
           />
@@ -188,7 +186,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                     }
                   />
                 </FormControl>
-                <FormMessage className="text-red-1" />
+                <FormMessage className="text-green-1" />
               </FormItem>
             )}
           />
@@ -199,7 +197,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
               name="price"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Price ($)</FormLabel>
+                  <FormLabel>Price (₹)</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
@@ -208,7 +206,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                       onKeyDown={handleKeyPress}
                     />
                   </FormControl>
-                  <FormMessage className="text-red-1" />
+                  <FormMessage className="text-green-1" />
                 </FormItem>
               )}
             />
@@ -217,7 +215,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
               name="expense"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Expense ($)</FormLabel>
+                  <FormLabel>Expense (₹)</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
@@ -226,7 +224,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                       onKeyDown={handleKeyPress}
                     />
                   </FormControl>
-                  <FormMessage className="text-red-1" />
+                  <FormMessage className="text-green-1" />
                 </FormItem>
               )}
             />
@@ -243,7 +241,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                       onKeyDown={handleKeyPress}
                     />
                   </FormControl>
-                  <FormMessage className="text-red-1" />
+                  <FormMessage className="text-green-1" />
                 </FormItem>
               )}
             />
@@ -265,7 +263,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                       }
                     />
                   </FormControl>
-                  <FormMessage className="text-red-1" />
+                  <FormMessage className="text-green-1" />
                 </FormItem>
               )}
             />
@@ -293,7 +291,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                         }
                       />
                     </FormControl>
-                    <FormMessage className="text-red-1" />
+                    <FormMessage className="text-green-1" />
                   </FormItem>
                 )}
               />
@@ -320,7 +318,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                       }
                     />
                   </FormControl>
-                  <FormMessage className="text-red-1" />
+                  <FormMessage className="text-green-1" />
                 </FormItem>
               )}
             />
@@ -346,20 +344,20 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                       }
                     />
                   </FormControl>
-                  <FormMessage className="text-red-1" />
+                  <FormMessage className="text-green-1" />
                 </FormItem>
               )}
             />
           </div>
 
           <div className="flex gap-10">
-            <Button type="submit" className="bg-blue-1 text-white">
+            <Button type="submit" className="bg-green-1 text-white">
               Submit
             </Button>
             <Button
               type="button"
               onClick={() => router.push("/products")}
-              className="bg-blue-1 text-white"
+              className="bg-green-1 text-white"
             >
               Discard
             </Button>

@@ -11,7 +11,7 @@ export const columns: ColumnDef<ProductType>[] = [
     cell: ({ row }) => (
       <Link
         href={`/products/${row.original._id}`}
-        className="hover:text-red-1"
+        className="hover:text-green-1"
       >
         {row.original.title}
       </Link>
@@ -28,11 +28,11 @@ export const columns: ColumnDef<ProductType>[] = [
   },
   {
     accessorKey: "price",
-    header: "Price ($)",
+    header: "Price (₹)",
   },
   {
     accessorKey: "expense",
-    header: "Expense ($)",
+    header: "Expense (₹)",
   },
   {
     id: "actions",

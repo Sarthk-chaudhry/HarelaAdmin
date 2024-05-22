@@ -6,12 +6,12 @@ import Link from "next/link";
 
 export const columns: ColumnDef<CollectionType>[] = [
   {
-    accessorKey: "title",
+    accessorKey: "title", 
     header: "Title",
     cell: ({ row }) => (
       <Link
         href={`/collections/${row.original._id}`}
-        className="hover:text-red-1"
+        className="hover:text-green-1"
       >
         {row.original.title}
       </Link>
