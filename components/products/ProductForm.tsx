@@ -296,7 +296,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                 )}
               />
             )}
-            <FormField
+{/*             <FormField
               control={form.control}
               name="colors"
               render={({ field }) => (
@@ -347,7 +347,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                   <FormMessage className="text-green-1" />
                 </FormItem>
               )}
-            />
+            /> */}
           </div>
 
           <div className="flex gap-10">
