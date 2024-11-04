@@ -32,8 +32,8 @@ const formSchema = z.object({
   category: z.string(),
   collections: z.array(z.string()),
   tags: z.array(z.string()),
-  sizes: z.array(z.string()),
-  colors: z.array(z.string()),
+  // sizes: z.array(z.string()),
+  // colors: z.array(z.string()),
   price: z.coerce.number().min(0.1),
   expense: z.coerce.number().min(0.1),
 });
@@ -44,6 +44,7 @@ interface ProductFormProps {
 
 const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
   const router = useRouter();
+  const [submitting, setSubmitting] = useState(false);
 
   const [loading, setLoading] = useState(true);
   const [collections, setCollections] = useState<CollectionType[]>([]);
@@ -55,10 +56,11 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
       });
       const data = await res.json();
       setCollections(data);
-      setLoading(false);
     } catch (err) {
       console.log("[collections_GET]", err);
       toast.error("Something went wrong! Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -68,12 +70,11 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData
+    defaultValues: initialData 
       ? {
           ...initialData,
-          collections: initialData.collections.map(
-            (collection) => collection._id
-          ),
+          collections: Array.isArray(initialData.collections)
+           ? initialData.collections.map((collection) => collection._id) : [],
         }
       : {
           title: "",
@@ -86,7 +87,6 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
           expense: 0.1,
         },
   });
-
   const handleKeyPress = (
     e:
       | React.KeyboardEvent<HTMLInputElement>
@@ -97,25 +97,59 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
     }
   };
 
+  // const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  //   try {
+  //     setSubmitting(true);
+  //     const url = initialData
+  //       ? `/api/products/${initialData._id}`
+  //       : "/api/products";
+  //     const res = await fetch(url, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(values),
+  //     });
+  //     if (res.ok) {
+  //       setLoading(false);
+  //       toast.success(`Product ${initialData ? "updated" : "created"}`);
+  //       window.location.href = "/products";
+  //       router.push("/products");
+  //     }
+  //   } catch (err) {
+  //     console.log("[products_POST]", err);
+  //     toast.error("Something went wrong! Please try again.");
+  //   }
+  // };
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      setLoading(true);
+      setSubmitting(true);
       const url = initialData
         ? `/api/products/${initialData._id}`
         : "/api/products";
+      
       const res = await fetch(url, {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(values),
       });
-      if (res.ok) {
-        setLoading(false);
-        toast.success(`Product ${initialData ? "updated" : "created"}`);
-        window.location.href = "/products";
-        router.push("/products");
+
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
       }
+
+      toast.success(`Product ${initialData ? "updated" : "created"} successfully`);
+      
+      // Use router.push and wait for it to complete
+      await router.push("/products");
     } catch (err) {
       console.log("[products_POST]", err);
       toast.error("Something went wrong! Please try again.");
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -296,7 +330,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                 )}
               />
             )}
-{/*             <FormField
+            {/* <FormField
               control={form.control}
               name="colors"
               render={({ field }) => (
